@@ -1,0 +1,43 @@
+<project name="platform" basedir="." default="war">
+
+  <property name="lib.dir" value="WebContent/WEB-INF/lib/"/>
+  <property name="src" value="${basedir}/src/"/>
+  <property name="build" value="bin"/>
+
+  <path id="classpath">
+    <fileset dir="${lib.dir}" includes="*.jar"/>
+  </path>
+
+  <target name="init" depends="clean">
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build}/WEB-INF"/>
+    <mkdir dir="${build}/WEB-INF/classes"/>
+    <mkdir dir="${build}/WEB-INF/lib"/>
+    <copy todir="${build}">
+      <fileset dir="${basedir}/WebContent">
+        <include name="WEB-INF/**"/>
+        <include name="**"/>
+        <exclude name="WEB-INF/lib/servlet-api.jar"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src}" destdir="${build}/WEB-INF/classes" classpathref="classpath" encoding="UTF-8"/>
+  </target>
+
+  <target name="war" depends="compile">
+    <war warfile="${basedir}/platform.war" webxml="${build}/WEB-INF/web.xml">
+      <lib dir="${build}/WEB-INF/lib">
+        <include name="**"/>
+      </lib>
+      <classes dir="${build}/WEB-INF/classes/"/>
+      <fileset dir="${build}"/>
+    </war>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build}" />
+    <delete file="${basedir}/platform.war" />
+  </target>
+</project>

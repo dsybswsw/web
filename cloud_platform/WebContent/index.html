@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+  <!-- include the javascripts -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"> -->
+  <!-- </script> -->
+  <script type="text/javascript" src="js/scripts.js"></script>
+</head>
+
+<body>
+
+<h1>我的第一段 JavaScript</h1>
+<p id="demo">
+  JavaScript 能改变 HTML 元素的内容。
+</p>
+
+
+<button type="button" onclick="myFunction()">点击这里</button>
+<br>
+
+
+<img id="myimage" onclick="changeImage()" src="images/pets.png">
+
+<p>点击灯泡来点亮或熄灭这盏灯</p>
+
+<h1>training status</h1>
+<button type="button" onclick="clickToUpdateStatus()">check status</button>
+
+<p id="status">
+  Training Status
+</p>
+
+<form>
+  <select id="algorithm" name="algorithms">
+    <option value="classification">classification</option>
+    <option value="clustering">clustering</option>
+  </select>
+  <br/>
+  <input id="parameters" type="text" name="parameters">
+</form>
+
+<br/>
+
+<button type="button" onclick="postTrainingRequest()">training</button>
+
+</body>
+</html>
