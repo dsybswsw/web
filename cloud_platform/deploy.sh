@@ -16,3 +16,9 @@ rm -rf $TOMCAT_DIR/webapps/platform.war
 cp platform.war $TOMCAT_DIR/webapps/
 
 $TOMCAT_DIR/bin/startup.sh
+
+sleep 3
+
+chmod +x $TOMCAT_DIR/webapps/platform/WEB-INF/scripts/*
+# chmod +x $TOMCAT_DIR/webapps/platform/WEB-INF/scripts/svm.sh
+# chmod +x $TOMCAT_DIR/webapps/platform/WEB-INF/scripts/generate_svm_format.py

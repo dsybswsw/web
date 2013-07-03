@@ -6,7 +6,6 @@ import com.platform.models.TrainingConstants;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,12 +15,11 @@ import java.util.logging.Logger;
  * User: dawei, dsybswsw@gmail.com
  * Date: 6/23/13
  */
-public class ModelTrainingServlet extends HttpServlet {
+public class ModelTrainingServlet extends BaseServlet {
 	private final static Logger logger = Logger.getLogger(ModelTrainingServlet.class.getName());
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		ServletGlobalInit.initialize();
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) {

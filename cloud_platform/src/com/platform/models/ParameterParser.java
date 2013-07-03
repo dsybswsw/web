@@ -20,9 +20,9 @@ public class ParameterParser {
 		if (!jsonElement.isJsonObject())
 			return null;
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
-		String taskName = jsonObject.get(TrainingConstants.ALGORITHMS).getAsString();
-		String parameters = jsonObject.get(TrainingConstants.PARAMETERS).getAsString();
-		logger.info(taskName + ", " + parameters);
-		return new Parameters(taskName, parameters);
+		String taskName = jsonObject.get(TrainingConstants.TASKNAME).getAsString();
+		// String parameters = jsonObject.get(TrainingConstants.PARAMETERS).getAsString();
+		logger.info(taskName);
+		return new Parameters(taskName, "");
 	}
 }

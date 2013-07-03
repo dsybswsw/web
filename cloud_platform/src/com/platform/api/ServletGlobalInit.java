@@ -1,5 +1,8 @@
 package com.platform.api;
 
+import com.platform.controller.TaskController;
+import com.platform.models.GlobalConfig;
+import com.platform.models.TrainingConfig;
 import com.platform.models.Trainer;
 
 /**
@@ -7,7 +10,10 @@ import com.platform.models.Trainer;
  * Date: 6/24/13
  */
 public class ServletGlobalInit {
-	public static void initialize() {
+	public static void initialize(String rootDir) {
+		TrainingConfig.initialize(rootDir + "/");
+		GlobalConfig.initialize(rootDir + "/WEB-INF/config/global.config");
+		TaskController.initialize();
 		Trainer.init();
 	}
 }

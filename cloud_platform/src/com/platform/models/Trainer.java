@@ -1,8 +1,13 @@
 package com.platform.models;
 
+import com.platform.controller.TaskController;
+
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -43,12 +48,43 @@ public class Trainer {
 
 	public synchronized void train(String jsonParams) {
 		Parameters params = ParameterParser.parseJsonParams(jsonParams);
+		if (params == null) {
+			logger.info("Failed to parse parameter json format.");
+			return ;
+		}
 		String taskName = params.getTaskName();
 		String parameter = params.getParameters();
 		trainingStatus = TrainingConstants.TRAINING;
+		TaskInfo taskInfo = TaskController.getInstance().getTask(taskName);
+		if (taskInfo == null) {
+			logger.info("No this task !");
+			return ;
+		}
+		String taskType = taskInfo.getTaskType();
+		String script = TrainingConfig.getInstance().getScript(taskType);
+		logger.info("scrpit is " + script);
+		String trainingFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".train";
+		String modelFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".model";
+		String testFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".test";
+		String resultFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".result";
+		List<String> cmds = new ArrayList<String>();
+		if (taskType.equals("classification")) {
+			cmds.add(script);
+			cmds.add(trainingFile);
+			cmds.add(modelFile);
+			cmds.add(testFile);
+			cmds.add(resultFile);
+			// parameter = parameter + " " + trainingFile + " " + modelFile + " " + testFile + " " + resultFile;
+		} else {
+			cmds.add(script);
+			cmds.add(trainingFile);
+			cmds.add(resultFile);
+			// parameter = parameter + " " + trainingFile + " " + resultFile;
+		}
 		try {
-			// runScipts(taskName, parameter);
-			Thread.sleep(10000);
+			runScipts(cmds);
+			// runScipts(script, parameter);
+			// Thread.sleep(10000);
 		} catch (Exception e) {
 			logger.info(e.toString());
 			statusMap.put(taskName, TrainingConstants.TRAINED);
@@ -56,11 +92,24 @@ public class Trainer {
 		trainingStatus = TrainingConstants.TRAINED;
 	}
 
-	private void runScipts(String taskName, String parameters) throws IOException {
-		String cmd = cmdMap.get(taskName) + " " + parameters;
-		Process child = Runtime.getRuntime().exec(cmd);
+	private void runScipts(String script, String... args) throws IOException {
+		// logger.info(script + " " + parameters);
+		ProcessBuilder processBuilder = new ProcessBuilder(script);
+		processBuilder.directory(new File(TrainingConfig.getInstance().gerScriptDir()));
+		Process child = processBuilder.start();
 		InputStream stream = child.getInputStream();
+		int c;
+		while ( (c = stream.read()) != -1) {
+			System.out.write(c);
+		}
+	}
 
+	private void runScipts(List<String> cmds) throws IOException {
+		// logger.info(script + " " + parameters);
+		ProcessBuilder processBuilder = new ProcessBuilder(cmds);
+		processBuilder.directory(new File(TrainingConfig.getInstance().gerScriptDir()));
+		Process child = processBuilder.start();
+		InputStream stream = child.getInputStream();
 		int c;
 		while ( (c = stream.read()) != -1) {
 			System.out.write(c);

@@ -1,0 +1,71 @@
+#userTable td {
+	height: 50px;
+}
+
+.searchDiv {
+	width: 580px;
+	margin: 0 auto;
+	background-color:red;
+}
+.textinput {
+	vertical-align: top;
+	width: 250px;
+	height:230px;
+	border: 1px solid #3A86F9;
+	line-height:20px;
+}
+.input {
+	vertical-align: top;
+	width: 250px;
+	height: 23px;
+	border: 1px solid #3A86F9;
+	line-height:20px;
+}
+
+.search {
+	vertical-align: top;
+	width: 70px;
+	height: 25px;
+	background-image: url('../images/searchButton.png');
+	/*background: url('../images/blue_button.gif') no-repeat scroll 0 0 transparent;
+	color:#ffffff;*/
+}
+
+.errorImg {
+	margin-top: 3px;
+	margin-left: 25px;
+	display: none;
+	float: left;
+	display: none;
+}
+
+.errorInfo {
+	vertical-align: top;
+	/*margin-top: 5px;*/
+	margin-left: 5px;
+	padding-left:5px;
+	padding-right:5px;
+	display: none;
+	float: left;
+	display: none;
+	height: 23px;
+	border:1px solid #f00;
+	line-height:23px;
+	background:#f9f7e0;
+}
+#submit{
+	padding:20px 0 0 250px;
+}
+#auto {
+	margin-top: 25px;
+	position: absolute;
+	display: none;
+	background-color: #FFFFC0;
+	width: 245px;
+	border: solid 1px #808080;
+	font-size: 12px;
+	line-height:20px;
+	color: green;
+	cursor: pointer;
+	padding: 3px;
+}

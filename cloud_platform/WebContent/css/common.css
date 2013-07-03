@@ -1,0 +1,33 @@
+* {
+	font-size:12px;  
+	margin: 0;
+}
+
+a:link {
+	color:#0066b3;
+	text-decoration: none;
+}
+
+a:visited {
+	color:#0066b3;
+	text-decoration: none;
+}
+
+a:hover {
+	color:#bb2200;
+	text-decoration: underline;
+}
+
+a:active {
+	color:#bb2200;
+	text-decoration: none;
+}
+
+.fontRight{
+	text-align:right;
+}
+
+.fontCenter {
+	text-align:center;
+}
+

@@ -11,4 +11,5 @@ public class TrainingConstants {
 	public final static String ALGORITHMS = "algorithm";
 	public final static String PARAMETERS = "parameters";
 
+	public final static String TASKNAME = "taskname";
 }
