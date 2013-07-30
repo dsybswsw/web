@@ -48,8 +48,8 @@
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li class=""><a href="index.html">Home</a></li>
-          <li class=""><a href="data.html">DataSet Management</a></li>          
           <li class=""><a href="task.html">Task Management</a></li>          
+          <li class=""><a href="data.html">Data Management</a></li>          
         </ul>
         <a class="brand">
           <img src="images/ds.png"></img>
@@ -57,55 +57,72 @@
       </div>
       <hr/>
       <div id="left" class="task1">
-        <h3>Build New Task</h3>
-        <form>       
-          <label for="new_task_name">new task name</label>
-          <input id="new_taskname" type="text" name="taskname"></input>
-          
+        <h3>Add New DataSet</h3>
+        <form id="upload_form" action="dataset" method="post" enctype="multipart/form-data" target="hidden_frame">
+          <input type="hidden" id="new_dataset_name" name="new_dataset_name" style="height:0" /> 
+          <label for="for_dataset_name">new dataset name</label>
+          <input id="dataset_name" type="text" name="dataset_name"></input>
           <br/>
-          <label>select task type</label>
-          <select id="tasktype" name="tasktype" onchange="getSelectDataSets(this.options[this.options.selectedIndex].value)">
-            <option type="hidden" value="null"></option>
+          <select id="tasktype" name="tasktype" onchange="adjustDisplay(this.options[this.options.selectedIndex].value)">
+            <option value="null"></option>
             <option value="classification">classification</option>
             <option value="clustering">clustering</option>
           </select>
+          <hr/>
+          <div id="train_div">
+            <label id="train_label" for="training file">training file</label>
+            <input type="file" id="train" name="train"></input>
+          </div>
+          
+          <div id="test_div" style="display:none">
+            <label id="test_label" for="testing file" >testing file (only for classification)</label>
+            <input id="test_input" type="file" id="test" name="test"></input>
+          </div>
+
           <br/>
-          <label for="label_description">description</label>
-          <input id="description" type="text" name="description"></input>
-          <br/>
-          <label>select datasets</label>
-          <select id="select_datasets" name="select_datasets">
-          </select>
+          <hr/>
+          <input type="submit" value="new dataset" />
         </form>
         
-        <button type="button" onclick="putNewTask()">new task</button>
+        <iframe id="hidden_frame" name="hidden_frame" width="0" height="0" scrolling="no">
+        </iframe>
+
         <hr/>
       </div>
 
+      <!-- <form id="upload_form" action="upload" method="post" enctype="multipart/form-data" target="hidden_frame"> -->
+      <!--   <input type="text" id="taskname" name="taskname" />  -->
+      <!--   <br /> -->
+      <!--   <input type="file" id="upload" name="upload" />  -->
+      <!--   <br /> -->
+      <!--   <input type="submit" value="Upload" /> -->
+      <!-- </form> -->
+
+      <!-- <iframe id="hidden_frame" name="hidden_frame" width="0" height="0" scrolling="no"> -->
+      <!-- </iframe> -->
       <div id="right" class="task2">
-        <h3>Look Up Existing Tasks</h3>
+        <h3>Look Up Existing DataSets</h3>
         <select id="select_type" name="tasktype">
           <option value="all">all</option>
           <option value="classification">classification</option>
           <option value="clustering">clustering</option>
         </select>
-        <button type="button" onclick="getTasks()">get tasks</button>
+        <button type="button" onclick="getDataSets()">get datasets</button>
         
         <table id="table" class="table table-striped table-bordered">
           <tr>
-            <th>taskname</th>
+            <th>dataset name</th>
             <th>tasktype</th>
-            <th>description</th>
           </tr>
         </table>
       </div>
       <div id="middle" class="nothing">
-        <!-- <a class="brand"> -->
-        <!--   <img src="images/pets.png"></img> -->
-        <!-- </a> -->
       </div>
     </div>
-    <label type="hidden" id="hidden_label">
-    <label type="hidden" id="last_param" value="all">
+    <label type="hidden" id="hidden_label"/>
+    <label type="hidden" id="last_param" value="all"/>
+    <script> 
+      undisplay("test_div");
+    </script>            
   </body>
 </html>

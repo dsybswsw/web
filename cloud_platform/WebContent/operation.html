@@ -40,11 +40,12 @@
   </head> 
 
   <body> 
-    <div class="container" style="width:700px">
+    <div class="container" style="width:900px">
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li class=""><a href="index.html">Home</a></li>
           <li class=""><a href="task.html">Task Management</a></li>          
+          <li class=""><a href="data.html">Data Management</a></li>          
         </ul>
         <a class="brand">
           <img src="images/ds.png"></img>
@@ -59,44 +60,45 @@
           </h3>
         </p>
       </div>
-      
-      <div id="left" class="file_upload">
-        <h4>File Uploader</h4>
-        <p>upload the files you need to do mining.</p>
-        <form id="upload_form" action="task" method="post" enctype="multipart/form-data" target="hidden_frame">
-          <input type="hidden" id="taskname" name="taskname" style="height:0" /> 
-          <label for="training file">training file</label>
-          <input type="file" id="train" name="train"></input>
-          <label for="testing file">testing file (only for classification)</label>
-          <input type="file" id="test" name="test"></input>
-          <br />
-          <input type="submit" value="upload" />
-        </form>
 
-        <iframe id="hidden_frame" name="hidden_frame" width="0" height="0" scrolling="no">
-        </iframe>
-      </div>
-      
-      <div id="right" class="request">
+      <hr/>
+
+      <div class="request">
         <h4>Running Commander</h4>
         <p>Send running command to the backend system</p>
-        <label for="send_training_request">Send Training Request</label>
-        <button type="button" onclick="postTraining()">training</button>
-        <label>Check Status</label>
-        <button type="button" onclick="clickToUpdateStatus()">check status</button>        
-        <br/>        
-        <br>
-        <label id="status" color="#006600" style="color:#006600; font-size:20">
-          Training Status
-        </label>
+        <hr/>
+        <div id="body">
+          <div id="level1">
+            <div id="body-left" style="float:left; height:100px;width:200px">
+              <label for="send_training_request">Send Training Request</label>
+              <button type="button" onclick="postTraining()">training</button>
+            </div>
+            <div id="body-right" style="float:left; height:100px;width:200px">
+              <label>Check Status</label>
+              <button type="button" onclick="clickToUpdateStatus()">check status</button>        
+            </div>
+          </div>
+          <div style="clear:both"></div>
+        </div>
+        <div id="status">
+          <label id="status" color="#006600" style="color:#006600; font-size:20">
+            Training Status
+          </label>
+        </div>        
+        <hr/>
+        <div id="download">
+          <label>Download the result.</label>
+          <!-- <button type="button" onclick="downloadResult()">download</button> -->
+          <form id="download" action="result" method="get"  target="hidden_frame">
+            <input type="hidden" id="download_taskname" name="taskname"  /> 
+            <input type="submit" value="download" />
+          </form>
+        </div>
         
-        <br/>
-        <label>Download the result.</label>
-        <!-- <button type="button" onclick="downloadResult()">download</button> -->
-        <form id="download" action="result" method="get"  target="hidden_frame">
-          <input type="hidden" id="download_taskname" name="taskname"  /> 
-          <input type="submit" value="download" />
-        </form>
+        <iframe id="hidden_frame" name="hidden_frame" width="0" height="0" scrolling="no">
+        </iframe>
+
+        <input type="hidden" id="taskname" name="taskname" style="height:0"></input>
 
         <script> 
           changeTaskName();

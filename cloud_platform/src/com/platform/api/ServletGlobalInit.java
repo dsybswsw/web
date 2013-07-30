@@ -1,5 +1,6 @@
 package com.platform.api;
 
+import com.platform.controller.DataSetManager;
 import com.platform.controller.TaskController;
 import com.platform.models.GlobalConfig;
 import com.platform.models.TrainingConfig;
@@ -14,6 +15,7 @@ public class ServletGlobalInit {
 		TrainingConfig.initialize(rootDir + "/");
 		GlobalConfig.initialize(rootDir + "/WEB-INF/config/global.config");
 		TaskController.initialize();
+		DataSetManager.init();
 		Trainer.init();
 	}
 }

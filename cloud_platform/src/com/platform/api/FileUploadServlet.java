@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
+ * ! NOT IN USE !
+ *
  * User: dawei, dsybswsw@gmail.com
  * Date: 6/26/13
  */
@@ -71,5 +73,7 @@ public class FileUploadServlet extends BaseServlet {
 				}
 			}
 		}
+
+		// Build a new dataset module and write it to database.
 	}
 }

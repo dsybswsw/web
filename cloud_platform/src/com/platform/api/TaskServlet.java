@@ -3,7 +3,10 @@ package com.platform.api;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.platform.controller.DataSetManager;
 import com.platform.controller.TaskController;
+import com.platform.controller.TaskManager;
+import com.platform.models.DataSet;
 import com.platform.models.GlobalConfig;
 import com.platform.models.TaskInfo;
 import com.platform.models.TrainingConstants;
@@ -12,10 +15,13 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,8 +29,12 @@ import java.util.logging.Logger;
  * User: dawei, dsybswsw@gmail.com
  * Date: 6/27/13
  */
-public class TaskServlet extends BaseServlet{
+public class TaskServlet extends BaseServlet {
 	private final static Logger logger = Logger.getLogger(ModelTrainingServlet.class.getName());
+
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+	}
 
 	// Get the task information.
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -43,8 +53,13 @@ public class TaskServlet extends BaseServlet{
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
 		String taskName = jsonObject.get("taskname").getAsString();
 		String taskType = jsonObject.get("tasktype").getAsString();
+		String discription = jsonObject.get("description").getAsString();
+		String datasetName = jsonObject.get("dataset_name").getAsString();
+		String misc = "";
 		logger.info("build new task " + taskName + ", " + taskType);
-		boolean isBuilt = TaskController.getInstance().buildNewTask(new TaskInfo(taskName, taskType));
+		TaskInfo newTask = new TaskInfo(taskName, taskType, discription, misc);
+		newTask.setDataSet(DataSetManager.getInstance().getDataSet(datasetName));
+		boolean isBuilt = TaskController.getInstance().buildNewTask(newTask);
 		if (isBuilt) {
 			response.getWriter().write("succeed");
 		} else {
@@ -52,61 +67,34 @@ public class TaskServlet extends BaseServlet{
 		}
 	}
 
-	// post information to run the runnable scripts.
+	// Connect the dataset with task.
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-		if (!isMultipart) {
-			response.getWriter().write("Not file upload request");
-			return;
-		}
+		handleDataSetSelection(request, response);
+	}
 
-		// Create a factory for disk-based file items.
-		DiskFileItemFactory factory = new DiskFileItemFactory();
+	private void handleDataSetSelection(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		// response.getWriter().write("Not file upload request");
+		request.setCharacterEncoding(ServletConstants.CHN_ENCODING);
+		String jsonString = request.getReader().readLine();
+		JsonParser jsonParser = new JsonParser();
+		logger.info("received json : " + jsonString);
+		JsonElement jsonElement = jsonParser.parse(jsonString);
+		JsonObject jsonObject = jsonElement.getAsJsonObject();
+		String taskName = jsonObject.get("taskname").getAsString();
+		String datasetName = jsonObject.get("select_datasets").getAsString();
+		DataSet dataSet = DataSetManager.getInstance().getDataSet(datasetName);
+		TaskInfo info = TaskManager.getInstance().getTask(taskName);
+		info.setDataSet(dataSet);
+		TaskManager.getInstance().update(info);
+		response.getWriter().write("update the dataset information");
+	}
 
-		// Configure a repository (to ensuere a secure temp location is used)
-		File repository = (File) this.getServletConfig().getServletContext()
-						.getAttribute("javax.servlet.context.tempdir");
-		factory.setRepository(repository);
-		ServletFileUpload upload = new ServletFileUpload(factory);
-		List<FileItem> itemList = null;
-		try {
-			itemList = upload.parseRequest(request);
-		} catch (FileUploadException e) {
-			logger.info(e.toString());
-			return;
-		}
-
-		String taskName = null;
-		for (FileItem item : itemList) {
-			if (item.getFieldName().equals("taskname")) {
-				taskName = item.getString();
-			}
-		}
-
+	private void buildDataSet(String taskName, String trainFile, String testFile) {
+		// TODO (Shiwei Wu) : to be implemented.
 		TaskInfo taskInfo = TaskController.getInstance().getTask(taskName);
-		if (taskInfo == null) {
-			response.getWriter().write("failed to post the task information.");
-		}
-
-		String type = taskInfo.getTaskType();
-		for (FileItem item : itemList) {
-			if (item.getFieldName().equals("train")) {
-				File file = new File(GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".train");
-				try {
-					item.write(file);
-					logger.info("write " + taskName + ".train" + " to remote disk!");
-				} catch (Exception e) {
-					logger.info(e.toString());
-				}
-			} else if (type.equals("classification") && item.getFieldName().equals("test")) {
-				File file = new File(GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".test");
-				try {
-					item.write(file);
-					logger.info("write " + taskName + ".test" + " to remote disk!");
-				} catch (Exception e) {
-					logger.info(e.toString());
-				}
-			}
-		}
+		DataSet dataSet = new DataSet(taskName, taskInfo.getTaskType(), trainFile, testFile);
+		taskInfo.setDataSet(dataSet);
+		TaskManager.getInstance().update(taskInfo);
+		DataSetManager.getInstance().addDataSet(dataSet);
 	}
 }

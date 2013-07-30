@@ -10,6 +10,8 @@ public class TaskInfo {
 	private String disciption;
 	private String misc;
 
+	private DataSet dataSet;
+
 	public TaskInfo(String taskName, String taskType, String disciption, String misc) {
 		init(taskName, taskType, disciption, misc);
 	}
@@ -23,6 +25,15 @@ public class TaskInfo {
 		this.taskType = taskType;
 		this.disciption = disciption;
 		this.misc = misc;
+		this.dataSet = null;
+	}
+
+	public void setDataSet(DataSet dataSet) {
+		this.dataSet = dataSet;
+	}
+
+	public DataSet getDataSet() {
+		return dataSet;
 	}
 
 	public String getTaskName() {

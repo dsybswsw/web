@@ -1,5 +1,6 @@
 package com.platform.controller;
 
+import com.platform.models.DataSet;
 import com.platform.models.SQLFields;
 import com.platform.models.TaskInfo;
 
@@ -46,6 +47,8 @@ public class TaskManager {
 		String type = taskInfo.getTaskType();
 		String discription = taskInfo.getDisciption();
 		String misc = taskInfo.getMisc();
+		String dataSetName = taskInfo.getDataSet().getDataSetName();
+
 		TaskInfo oldInfo = getTask(name);
 		if (oldInfo != null) {
 			logger.info("task " + name + " has already exist.");
@@ -62,7 +65,38 @@ public class TaskManager {
 		sqlBuffer.append(discription);
 		sqlBuffer.append("','");
 		sqlBuffer.append(misc);
+		sqlBuffer.append("','");
+		sqlBuffer.append(dataSetName);
 		sqlBuffer.append("');");
+		try {
+			dataBase.execute(sqlBuffer.toString());
+			return true;
+		} catch (SQLException e) {
+			logger.info(e.toString());
+			return false;
+		}
+	}
+
+	public boolean update(TaskInfo taskInfo) {
+		String name = taskInfo.getTaskName();
+
+		TaskInfo oldInfo = getTask(name);
+		if (oldInfo == null) {
+			logger.info("task " + name + " doesn't exist.");
+			return false;
+		}
+		StringBuffer sqlBuffer = new StringBuffer();
+		sqlBuffer.append("update ");
+		sqlBuffer.append(TABLE_NAME);
+		sqlBuffer.append(" set ");
+		sqlBuffer.append(SQLFields.DATTASET_NAME);
+		sqlBuffer.append(" = '");
+		sqlBuffer.append(taskInfo.getDataSet().getDataSetName());
+		sqlBuffer.append("' where ");
+		sqlBuffer.append(SQLFields.NAME);
+		sqlBuffer.append(" = '");
+		sqlBuffer.append(name);
+		sqlBuffer.append("';");
 		try {
 			dataBase.execute(sqlBuffer.toString());
 			return true;
@@ -85,9 +119,15 @@ public class TaskManager {
 			if (resultSet.next()) {
 				String name = resultSet.getString(SQLFields.NAME);
 				String type = resultSet.getString(SQLFields.TYPE);
-				String discription = resultSet.getString(SQLFields.DISCRIPTION);
+				String discription = resultSet.getString(SQLFields.DESCRIPTION);
 				String misc = resultSet.getString(SQLFields.MISC);
-				return new TaskInfo(name, type, discription, misc);
+				String dataSetName = resultSet.getString(SQLFields.DATTASET_NAME);
+				TaskInfo taskInfo = new TaskInfo(name, type, discription, misc);
+				if (dataSetName != null && dataSetName.length() > 0) {
+					DataSet dataSet = DataSetManager.getInstance().getDataSet(dataSetName);
+					taskInfo.setDataSet(dataSet);
+				}
+				return taskInfo;
 			} else {
 				return null;
 			}
@@ -111,9 +151,15 @@ public class TaskManager {
 		while (resultSet.next()) {
 			String name = resultSet.getString(SQLFields.NAME);
 			String type = resultSet.getString(SQLFields.TYPE);
-			String discription = resultSet.getString(SQLFields.DISCRIPTION);
+			String discription = resultSet.getString(SQLFields.DESCRIPTION);
 			String misc = resultSet.getString(SQLFields.MISC);
-			taskInfos.add(new TaskInfo(name, type, discription, misc));
+			String dataSetName = resultSet.getString(SQLFields.DATTASET_NAME);
+			TaskInfo taskInfo = new TaskInfo(name, type, discription, misc);
+			if (dataSetName != null && dataSetName.length() > 0) {
+				DataSet dataSet = DataSetManager.getInstance().getDataSet(dataSetName);
+				taskInfo.setDataSet(dataSet);
+			}
+			taskInfos.add(taskInfo);
 		}
 		return taskInfos;
 	}

@@ -6,6 +6,4 @@ package com.platform.api;
  */
 public class ServletConstants {
 	public final static String CHN_ENCODING = "UTF8";
-
-	public final static String TASK_NAME = "task_name";
 }

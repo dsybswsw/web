@@ -12,6 +12,7 @@ public class ModelTrainerThread extends Thread{
 	}
 
 	public void run() {
-		Trainer.getInstance().train(jsonParams);
+		// Trainer.getInstance().train(jsonParams);
+		Trainer.getInstance().doTraining(jsonParams);
 	}
 }

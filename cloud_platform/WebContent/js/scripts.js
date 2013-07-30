@@ -4,6 +4,7 @@
 // constant variables.
 var TRAINING_URL = "training";
 var TASK_URL = "task";
+var DATA_URL = "dataset";
 
 var TRAINER = "trained";
 var TRAINING = "training";
@@ -98,13 +99,45 @@ function parseSkipUrl(url) {
 function putNewTask() {
     var taskname = document.getElementById("new_taskname").value;
     var tasktype = document.getElementById("tasktype").value;
-    var params = {"taskname":taskname, "tasktype":tasktype};    
+    var description = document.getElementById("description").value;
+    var dataset_name = document.getElementById("select_datasets").value;
+    var params = {"taskname":taskname, "tasktype":tasktype, "description":description, "dataset_name":dataset_name};    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("PUT", TASK_URL, false);
     xmlhttp.setRequestHeader ('Content-Type', 'application/json');
     xmlhttp.send(JSON.stringify(params));
     var recText = xmlhttp.responseText;
     return recText;
+}
+
+// function putNewDataSet() {
+//     var taskname = document.getElementById("new_dataset_name").value;
+//     var tasktype = document.getElementById("tasktype").value;
+//     var params = {"taskname":taskname, "tasktype":tasktype};    
+//     var xmlhttp = new XMLHttpRequest();
+//     xmlhttp.open("PUT", TASK_URL, false);
+//     xmlhttp.setRequestHeader ('Content-Type', 'application/json');
+//     xmlhttp.send(JSON.stringify(params));
+//     var recText = xmlhttp.responseText;
+//     return recText;
+// }
+
+function adjustDisplay(tasktype) {
+    if (tasktype == 'classification') {        
+        display("test_div");
+    } else {
+        undisplay("test_div");
+    }
+}
+
+function undisplay(id){   
+    var target=document.getElementById(id);   
+    target.style.display = "none";
+}
+
+function display(id){   
+    var target=document.getElementById(id);   
+    target.style.display = "";
 }
 
 function changeTaskName() {
@@ -136,10 +169,7 @@ function getTasks() {
             tb.deleteRow(1);
         }
     }
-    // if (document.getElementById("hidden_label").value > 1)
-    //     return 
-    // document.getElementById("hidden_label").value = obj.length;
-    // document.getElementById("hidden_param").value = document.getElementById("select_type").value;
+
     for (var i = 0; i < obj.length; i++) {
         var row = i + 1;
         var tr = tb.insertRow(row);        
@@ -160,6 +190,77 @@ function getTasks() {
         td.appendChild(discription);        
     }
     // document.body.appendChild(tb);
+}
+
+
+function getDataSets() {
+    var tasktype = document.getElementById("select_type").value;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", DATA_URL + "?tasktype=" + tasktype, false);
+    xmlhttp.setRequestHeader ('Content-Type', 'application/json');
+    // xmlhttp.send(JSON.stringify(params));
+    xmlhttp.send(null);
+    if (xmlhttp.status != 200) {
+        return;
+    }
+    var recText = xmlhttp.responseText;    
+    var obj = eval ("(" + recText + ")");
+
+    var tb = document.getElementById("table");
+    if (tb.rows.length > 1) {
+        var len = tb.rows.length;
+        for (var i = 1; i < len; i++) {
+            tb.deleteRow(1);
+        }
+    }
+
+    for (var i = 0; i < obj.length; i++) {
+        var row = i + 1;
+        var tr = tb.insertRow(row);        
+
+        var td = tr.insertCell(0);
+        // var href = document.createElement("a");
+        // href.setAttribute("href", "operation.html?tasknane=" + obj[i].dataset_name);
+        var dataset_name = document.createTextNode(obj[i].dataset_name);
+        // href.appendChild(taskname);
+        td.appendChild(dataset_name);
+        
+        var td = tr.insertCell(1);
+        var tasktype = document.createTextNode(obj[i].tasktype);
+        td.appendChild(tasktype);        
+    }
+    // document.body.appendChild(tb);
+}
+
+function getSelectDataSets(tasktype) {
+    // var tasktype = document.getElementById("select_type").value;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", DATA_URL + "?tasktype=" + tasktype, false);
+    xmlhttp.setRequestHeader ('Content-Type', 'application/json');
+    // xmlhttp.send(JSON.stringify(params));
+    xmlhttp.send(null);
+    if (xmlhttp.status != 200) {
+        return;
+    }
+    var recText = xmlhttp.responseText;    
+    var obj = eval ("(" + recText + ")");
+
+    var select = document.getElementById("select_datasets");
+    // alert(select.length);
+    if (select.length > 0) {
+        var len = select.length;
+        for (var i = 0; i < len; i++) {
+            select.remove(i);
+        }
+    }
+
+    for (var i = 0; i < obj.length; i++) {
+        // var dataset_name = document.createTextNode(obj[i].dataset_name);
+        var option = new Option(obj[i].dataset_name, obj[i].dataset_name);
+        // alert(dataset_name);
+        // select.appendChild(dataset_name);        
+        select.options[i] = option;
+    }
 }
 
 function write_td(content) {

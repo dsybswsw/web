@@ -15,7 +15,6 @@ MODEL=$2
 TEST=$3
 RESULT=$4
 
-
 echo $ORG_DATA
 echo $MODEL
 echo $TEST
