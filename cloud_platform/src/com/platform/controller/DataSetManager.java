@@ -1,6 +1,7 @@
 package com.platform.controller;
 
 import com.platform.models.DataSet;
+import com.platform.models.GlobalConfig;
 import com.platform.models.SQLFields;
 
 import java.sql.ResultSet;
@@ -14,9 +15,6 @@ import java.util.logging.Logger;
  * Date: 6/29/13
  */
 public class DataSetManager {
-	private final static String USERNAME = "root";
-	private final static String PASSWORD = "root";
-	private final static String DB_NAME = "tasks_dev";
 	private final static String TABLE_NAME = "datasets";
 
 	private final static Logger logger = Logger.getLogger(DataSetManager.class.getName());
@@ -25,7 +23,7 @@ public class DataSetManager {
 
 	private DataSetManager(){
 		try {
-			dataBase = new MysqlDB(USERNAME, PASSWORD, DB_NAME);
+			dataBase = MysqlDB.getInstance();
 		} catch (Exception e) {
 			logger.info(e.toString());
 		}

@@ -1,6 +1,7 @@
 package com.platform.api;
 
 import com.platform.controller.DataSetManager;
+import com.platform.controller.MysqlDB;
 import com.platform.controller.TaskController;
 import com.platform.models.GlobalConfig;
 import com.platform.models.TrainingConfig;
@@ -12,8 +13,9 @@ import com.platform.models.Trainer;
  */
 public class ServletGlobalInit {
 	public static void initialize(String rootDir) {
-		TrainingConfig.initialize(rootDir + "/");
-		GlobalConfig.initialize(rootDir + "/WEB-INF/config/global.config");
+		GlobalConfig.initialize(rootDir);
+		TrainingConfig.initialize(rootDir);
+		MysqlDB.initialize(GlobalConfig.getInstance().getDbProfile());
 		TaskController.initialize();
 		DataSetManager.init();
 		Trainer.init();

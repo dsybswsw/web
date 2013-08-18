@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 public class BaseServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		String rootDir = config.getServletContext().getRealPath("/");
+		String rootDir = config.getServletContext().getRealPath("/") + "/";
 		ServletGlobalInit.initialize(rootDir);
 	}
 }

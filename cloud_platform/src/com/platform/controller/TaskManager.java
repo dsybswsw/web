@@ -1,6 +1,7 @@
 package com.platform.controller;
 
 import com.platform.models.DataSet;
+import com.platform.models.GlobalConfig;
 import com.platform.models.SQLFields;
 import com.platform.models.TaskInfo;
 
@@ -15,9 +16,6 @@ import java.util.logging.Logger;
  * Date: 6/29/13
  */
 public class TaskManager {
-	private final static String USERNAME = "root";
-	private final static String PASSWORD = "root";
-	private final static String DB_NAME = "tasks_dev";
 	private final static String TABLE_NAME = "tasks";
 
 	private final static Logger logger = Logger.getLogger(TaskManager.class.getName());
@@ -26,7 +24,7 @@ public class TaskManager {
 
 	private TaskManager(){
 		try {
-			dataBase = new MysqlDB(USERNAME, PASSWORD, DB_NAME);
+			dataBase = MysqlDB.getInstance();
 		} catch (Exception e) {
 			logger.info(e.toString());
 		}

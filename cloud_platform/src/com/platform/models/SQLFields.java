@@ -5,6 +5,10 @@ package com.platform.models;
  * Date: 6/30/13
  */
 public class SQLFields {
+	public final static String DB_USER_NAME = "user";
+	public final static String DB_PASSWD = "passwd";
+	public final static String DB_NAME = "dbname";
+
 	public final static String NAME = "name";
 	public final static String TYPE = "type";
 	public final static String DESCRIPTION = "description";

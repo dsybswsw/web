@@ -13,14 +13,33 @@ public class GlobalConfig {
 
 	private final static String WEB_APPS_DIR = "webapps_dir";
 
-	private Map<String, String> keyMap;
+	private String rootDir;
+	private String scriptMapFile;
+	private String dbProfile;
 
-	private GlobalConfig(String configMapFile) {
-		this.keyMap = ConfigParser.loadConfigFile(configMapFile);
+	public String getRootDir() {
+		return rootDir;
 	}
 
-	public static void initialize(String configMapFile) {
-		globleConfig = new GlobalConfig(configMapFile);
+	public String getScriptMapFile() {
+		return scriptMapFile;
+	}
+
+	public String getDbProfile() {
+		return dbProfile;
+	}
+
+	private Map<String, String> keyMap;
+
+	private GlobalConfig(String rootDir) {
+		this.rootDir = rootDir;
+		this.keyMap = ConfigParser.loadConfigFile(rootDir + "/WEB-INF/config/global.config");
+		this.scriptMapFile = rootDir + "/WEB-INF/config/scripts_map.config";
+		this.dbProfile = rootDir + "/WEB-INF/config/db.config";
+	}
+
+	public static void initialize(String rootDir) {
+		globleConfig = new GlobalConfig(rootDir);
 	}
 
 	private static GlobalConfig globleConfig = null;
@@ -34,6 +53,6 @@ public class GlobalConfig {
 	}
 
 	public String getWebAppsDir() {
-		return keyMap.get(WEB_APPS_DIR);
+		return rootDir + "../";
 	}
 }

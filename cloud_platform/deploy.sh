@@ -1,5 +1,7 @@
 #! /bin/sh
 
+# run in sudo!
+
 # auto build war.
 ant war
 

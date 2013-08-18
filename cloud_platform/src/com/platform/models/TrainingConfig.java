@@ -14,13 +14,11 @@ public class TrainingConfig {
 	private final static String SCRIPT_DIR = "WEB-INF/scripts/";
 	private final static String DATA_DIR = "WEB-INF/data/";
 
-	private final static String SCRIPT_MAP_FILENAME = "scripts_map.config";
-
 	private Map<String, String> scriptMap;
 
 	public TrainingConfig(String rootDir) {
 		this.rootDir = rootDir;
-		scriptMap = ConfigParser.loadConfigFile(rootDir + SCRIPT_DIR + SCRIPT_MAP_FILENAME);
+		scriptMap = ConfigParser.loadConfigFile(GlobalConfig.getInstance().getScriptMapFile());
 	}
 
 	private static TrainingConfig configurator;

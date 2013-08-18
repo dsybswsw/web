@@ -18,6 +18,13 @@ public abstract class DataBase {
 	protected Connection connection = null;
 
 	public DataBase(String username, String passwd, String database) throws Exception {
+		init(username, passwd, database);
+	}
+
+	protected DataBase() {
+	}
+
+	protected void init(String username, String passwd, String database) throws Exception {
 		this.username = username;
 		this.password = passwd;
 		this.database = database;

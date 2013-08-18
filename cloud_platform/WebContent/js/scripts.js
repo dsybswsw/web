@@ -192,7 +192,6 @@ function getTasks() {
     // document.body.appendChild(tb);
 }
 
-
 function getDataSets() {
     var tasktype = document.getElementById("select_type").value;
     var xmlhttp = new XMLHttpRequest();
