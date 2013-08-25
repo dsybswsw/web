@@ -9,10 +9,5 @@ import com.platform.api.ServletGlobalInit;
  */
 public class TrainerTest {
 	public static void main(String[] args) {
-		ServletGlobalInit.initialize("/home/dawei/codes/web/cloud_platform/WebContent/");
-		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("parameters", "");
-		jsonObject.addProperty("algorithm" ,"classification");
-		Trainer.getInstance().train(jsonObject.toString());
 	}
 }

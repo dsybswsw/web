@@ -75,6 +75,42 @@ public class TaskManager {
 		}
 	}
 
+	public boolean deleteTask(String taskName) {
+		StringBuilder sqlBuilder = new StringBuilder();
+		sqlBuilder.append("delete from ");
+		sqlBuilder.append(TABLE_NAME);
+		sqlBuilder.append(" where ");
+		sqlBuilder.append(SQLFields.NAME);
+		sqlBuilder.append(" = '");
+		sqlBuilder.append(taskName);
+		sqlBuilder.append("';");
+		try {
+			dataBase.execute(sqlBuilder.toString());
+			return true;
+		} catch (SQLException e) {
+			logger.info(e.toString());
+			return false;
+		}
+	}
+
+	public boolean deleteTasks(String dataSetName) {
+		StringBuilder sqlBuilder = new StringBuilder();
+		sqlBuilder.append("delete from ");
+		sqlBuilder.append(TABLE_NAME);
+		sqlBuilder.append(" where ");
+		sqlBuilder.append(SQLFields.DATTASET_NAME);
+		sqlBuilder.append(" = '");
+		sqlBuilder.append(dataSetName);
+		sqlBuilder.append("';");
+		try {
+			dataBase.execute(sqlBuilder.toString());
+			return true;
+		} catch (SQLException e) {
+			logger.info(e.toString());
+			return false;
+		}
+	}
+
 	public boolean update(TaskInfo taskInfo) {
 		String name = taskInfo.getTaskName();
 

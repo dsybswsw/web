@@ -101,53 +101,6 @@ public class Trainer {
 		trainingStatus = TrainingConstants.TRAINED;
 	}
 
-	public synchronized void train(String jsonParams) {
-		Parameters params = ParameterParser.parseJsonParams(jsonParams);
-		if (params == null) {
-			logger.info("Failed to parse parameter json format.");
-			return ;
-		}
-		String taskName = params.getTaskName();
-		trainingStatus = TrainingConstants.TRAINING;
-		TaskInfo taskInfo = TaskController.getInstance().getTask(taskName);
-		if (taskInfo == null) {
-			logger.info("No this task !");
-			return ;
-		}
-		String taskType = taskInfo.getTaskType();
-		String script = TrainingConfig.getInstance().getScript(taskType);
-		String parameters = taskInfo.getMisc();
-		logger.info("scrpit is " + script);
-		String trainingFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".train";
-		String modelFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".model";
-		String testFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".test";
-		String resultFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".result";
-		List<String> cmds = new ArrayList<String>();
-		cmds.add(script);
-		String[] paramArray = parameters.split("\\s+");
-		for (String param : paramArray) {
-			cmds.add(param);
-		}
-		if (taskType.equals("classification")) {
-			cmds.add(trainingFile);
-			cmds.add(modelFile);
-			cmds.add(testFile);
-			cmds.add(resultFile);
-		} else {
-			cmds.add(trainingFile);
-			cmds.add(resultFile);
-		}
-		try {
-			runScipts(cmds);
-			// runScipts(script, parameter);
-			// Thread.sleep(10000);
-		} catch (Exception e) {
-			logger.info(e.toString());
-			statusMap.put(taskName, TrainingConstants.TRAINED);
-		}
-		trainingStatus = TrainingConstants.TRAINED;
-	}
-
 	private void runScipts(List<String> cmds) throws IOException {
 		logger.info(cmds.toString());
 		ProcessBuilder processBuilder = new ProcessBuilder(cmds);

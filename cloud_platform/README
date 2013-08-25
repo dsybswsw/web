@@ -1,0 +1,10 @@
+deploy the web application
+1. before modify the script deploy.sh, modify the TOMCAT environment variable 
+   to the host's tomcat home directory.
+
+2. import database structure. modify the ./WebContent/WEB-INF/config/db.config
+   to the local database profiles and import the sql scripts to mysql database.
+
+3. run the scirpt in sudo.
+   sudo ./deploy.sh
+

@@ -102,6 +102,25 @@ public class DataSetManager {
 		}
 	}
 
+	public boolean deleteDataSet(String dataSetName) {
+		StringBuilder sqlBuilder = new StringBuilder();
+		sqlBuilder.append("delete from ");
+		sqlBuilder.append(TABLE_NAME);
+		sqlBuilder.append(" where ");
+		sqlBuilder.append(SQLFields.DATTASET_NAME);
+		sqlBuilder.append(" = '");
+		sqlBuilder.append(dataSetName);
+		sqlBuilder.append("';");
+		try {
+			dataBase.execute(sqlBuilder.toString());
+			TaskManager.getInstance().deleteTasks(dataSetName);
+			return true;
+		} catch (SQLException e) {
+			logger.info(e.toString());
+			return false;
+		}
+	}
+
 	public List<DataSet> getDataSets(String taskType) throws Exception {
 		List<DataSet> dataSets = new ArrayList<DataSet>();
 		StringBuilder sqlBuilder = new StringBuilder();

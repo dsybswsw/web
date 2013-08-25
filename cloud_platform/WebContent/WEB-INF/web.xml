@@ -33,6 +33,18 @@
         <servlet-name>DataSetServlet</servlet-name>
         <servlet-class>com.platform.api.DataSetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DataSetDownloaderServlet</servlet-name>
+        <servlet-class>com.platform.api.DataSetDownloaderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DataSetDeleterServlet</servlet-name>
+        <servlet-class>com.platform.api.DataSetDeleterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TaskDeleterServlet</servlet-name>
+        <servlet-class>com.platform.api.TaskDeletetServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>ModelTrainingServlet</servlet-name>
@@ -53,5 +65,17 @@
     <servlet-mapping>
         <servlet-name>DataSetServlet</servlet-name>
         <url-pattern>/dataset</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DataSetDownloaderServlet</servlet-name>
+        <url-pattern>/dataset/downloader</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DataSetDeleterServlet</servlet-name>
+        <url-pattern>/dataset/deleter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TaskDeleterServlet</servlet-name>
+        <url-pattern>/task/deleter</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -190,6 +190,13 @@ function getTasks() {
         var td = tr.insertCell(2);
         var discription = document.createTextNode(obj[i].description);
         td.appendChild(discription);        
+
+        var td = tr.insertCell(3);
+        var href = document.createElement("a");
+        href.setAttribute("href", "task/deleter?taskname=" + obj[i].taskname);
+        var deleter = document.createTextNode("delete");
+        href.appendChild(deleter);
+        td.appendChild(href);
     }
     // document.body.appendChild(tb);
 }
@@ -229,6 +236,20 @@ function getDataSets() {
         var td = tr.insertCell(1);
         var tasktype = document.createTextNode(obj[i].tasktype);
         td.appendChild(tasktype);        
+
+        var td = tr.insertCell(2);
+        var href = document.createElement("a");
+        href.setAttribute("href", "dataset/downloader?dataset_name=" + obj[i].dataset_name);
+        var download = document.createTextNode("download");
+        href.appendChild(download);
+        td.appendChild(href);
+
+        var td = tr.insertCell(3);
+        var href = document.createElement("a");
+        href.setAttribute("href", "dataset/deleter?dataset_name=" + obj[i].dataset_name);
+        var deleter = document.createTextNode("delete");
+        href.appendChild(deleter);
+        td.appendChild(href);
     }
     // document.body.appendChild(tb);
 }
