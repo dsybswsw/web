@@ -54,7 +54,7 @@ public class Trainer {
 			return ;
 		}
 		String taskName = params.getTaskName();
-		String parameter = params.getParameters();
+		// String parameter = params.getParameters();
 		trainingStatus = TrainingConstants.TRAINING;
 		TaskInfo taskInfo = TaskController.getInstance().getTask(taskName);
 		if (taskInfo == null) {
@@ -63,6 +63,8 @@ public class Trainer {
 		}
 		String taskType = taskInfo.getTaskType();
 		DataSet dataSet = taskInfo.getDataSet();
+		String parameters = taskInfo.getMisc();
+
 		if (dataSet == null) {
 			logger.info("no dataset.");
 			return;
@@ -74,18 +76,19 @@ public class Trainer {
 		String testFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + dataSet.getTestFileName();
 		String resultFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".result";
 		List<String> cmds = new ArrayList<String>();
+		cmds.add(script);
+		String[] paramArray = parameters.split("\\s+");
+		for (String param : paramArray) {
+			cmds.add(param);
+		}
 		if (taskType.equals("classification")) {
-			cmds.add(script);
 			cmds.add(trainingFile);
 			cmds.add(modelFile);
 			cmds.add(testFile);
 			cmds.add(resultFile);
-			// parameter = parameter + " " + trainingFile + " " + modelFile + " " + testFile + " " + resultFile;
 		} else {
-			cmds.add(script);
 			cmds.add(trainingFile);
 			cmds.add(resultFile);
-			// parameter = parameter + " " + trainingFile + " " + resultFile;
 		}
 		try {
 			runScipts(cmds);
@@ -105,7 +108,6 @@ public class Trainer {
 			return ;
 		}
 		String taskName = params.getTaskName();
-		String parameter = params.getParameters();
 		trainingStatus = TrainingConstants.TRAINING;
 		TaskInfo taskInfo = TaskController.getInstance().getTask(taskName);
 		if (taskInfo == null) {
@@ -114,24 +116,26 @@ public class Trainer {
 		}
 		String taskType = taskInfo.getTaskType();
 		String script = TrainingConfig.getInstance().getScript(taskType);
+		String parameters = taskInfo.getMisc();
 		logger.info("scrpit is " + script);
 		String trainingFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".train";
 		String modelFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".model";
 		String testFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".test";
 		String resultFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".result";
 		List<String> cmds = new ArrayList<String>();
+		cmds.add(script);
+		String[] paramArray = parameters.split("\\s+");
+		for (String param : paramArray) {
+			cmds.add(param);
+		}
 		if (taskType.equals("classification")) {
-			cmds.add(script);
 			cmds.add(trainingFile);
 			cmds.add(modelFile);
 			cmds.add(testFile);
 			cmds.add(resultFile);
-			// parameter = parameter + " " + trainingFile + " " + modelFile + " " + testFile + " " + resultFile;
 		} else {
-			cmds.add(script);
 			cmds.add(trainingFile);
 			cmds.add(resultFile);
-			// parameter = parameter + " " + trainingFile + " " + resultFile;
 		}
 		try {
 			runScipts(cmds);
@@ -145,7 +149,7 @@ public class Trainer {
 	}
 
 	private void runScipts(List<String> cmds) throws IOException {
-		// logger.info(script + " " + parameters);
+		logger.info(cmds.toString());
 		ProcessBuilder processBuilder = new ProcessBuilder(cmds);
 		processBuilder.directory(new File(TrainingConfig.getInstance().gerScriptDir()));
 		Process child = processBuilder.start();

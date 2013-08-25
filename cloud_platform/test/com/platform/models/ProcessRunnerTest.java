@@ -9,7 +9,7 @@ import java.io.InputStream;
  */
 public class ProcessRunnerTest {
 	public static void main(String[] args) throws IOException {
-		String command = "ls /";
+		String command = "ls -ltr";
 		Process child = Runtime.getRuntime().exec(command);
 		InputStream stream = child.getInputStream();
 

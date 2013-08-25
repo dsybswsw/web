@@ -101,7 +101,9 @@ function putNewTask() {
     var tasktype = document.getElementById("tasktype").value;
     var description = document.getElementById("description").value;
     var dataset_name = document.getElementById("select_datasets").value;
-    var params = {"taskname":taskname, "tasktype":tasktype, "description":description, "dataset_name":dataset_name};    
+    var parameters = document.getElementById("parameters").value;
+    var params = {"taskname":taskname, "tasktype":tasktype, "description":description, 
+                  "dataset_name":dataset_name, "parameters":parameters};
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.open("PUT", TASK_URL, false);
     xmlhttp.setRequestHeader ('Content-Type', 'application/json');

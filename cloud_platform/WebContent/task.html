@@ -68,10 +68,14 @@
             <option type="hidden" value="null"></option>
             <option value="classification">classification</option>
             <option value="clustering">clustering</option>
+            <option value="fp_growth">fp_growth</option>
           </select>
           <br/>
           <label for="label_description">description</label>
           <input id="description" type="text" name="description"></input>
+          <br/>
+          <label for="parameters">parameters(split by space)</label>
+          <input id="parameters" type="text" name="parameters"></input>
           <br/>
           <label>select datasets</label>
           <select id="select_datasets" name="select_datasets">
@@ -88,6 +92,7 @@
           <option value="all">all</option>
           <option value="classification">classification</option>
           <option value="clustering">clustering</option>
+          <option value="fp_growth">fp_growth</option>
         </select>
         <button type="button" onclick="getTasks()">get tasks</button>
         

@@ -55,7 +55,7 @@ public class TaskServlet extends BaseServlet {
 		String taskType = jsonObject.get("tasktype").getAsString();
 		String discription = jsonObject.get("description").getAsString();
 		String datasetName = jsonObject.get("dataset_name").getAsString();
-		String misc = "";
+		String misc = jsonObject.get("parameters").getAsString();
 		logger.info("build new task " + taskName + ", " + taskType);
 		TaskInfo newTask = new TaskInfo(taskName, taskType, discription, misc);
 		newTask.setDataSet(DataSetManager.getInstance().getDataSet(datasetName));
