@@ -51,7 +51,7 @@ public class Trainer {
 		Parameters params = ParameterParser.parseJsonParams(jsonParams);
 		if (params == null) {
 			logger.info("Failed to parse parameter json format.");
-			return ;
+			return;
 		}
 		String taskName = params.getTaskName();
 		// String parameter = params.getParameters();
@@ -59,7 +59,7 @@ public class Trainer {
 		TaskInfo taskInfo = TaskController.getInstance().getTask(taskName);
 		if (taskInfo == null) {
 			logger.info("No this task !");
-			return ;
+			return;
 		}
 		String taskType = taskInfo.getTaskType();
 		DataSet dataSet = taskInfo.getDataSet();
@@ -77,9 +77,11 @@ public class Trainer {
 		String resultFile = GlobalConfig.getInstance().getModelWorkDir() + "/" + taskName + ".result";
 		List<String> cmds = new ArrayList<String>();
 		cmds.add(script);
-		String[] paramArray = parameters.split("\\s+");
-		for (String param : paramArray) {
-			cmds.add(param);
+		String[] paramArray = parameters.trim().split("\\s+");
+		if (!parameters.trim().isEmpty()) {
+			for (String param : paramArray) {
+				cmds.add(param);
+			}
 		}
 		if (taskType.equals("classification")) {
 			cmds.add(trainingFile);
@@ -101,6 +103,19 @@ public class Trainer {
 		trainingStatus = TrainingConstants.TRAINED;
 	}
 
+	public void runScriptsTest(String cmdLine) {
+		String[] tokens = cmdLine.split(" ");
+		List<String> cmds = new ArrayList<String>();
+		for (String token : tokens) {
+			cmds.add(token);
+		}
+		try {
+			runScipts(cmds);
+		} catch (IOException e) {
+			e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+		}
+	}
+
 	private void runScipts(List<String> cmds) throws IOException {
 		logger.info(cmds.toString());
 		ProcessBuilder processBuilder = new ProcessBuilder(cmds);
@@ -108,7 +123,7 @@ public class Trainer {
 		Process child = processBuilder.start();
 		InputStream stream = child.getInputStream();
 		int c;
-		while ( (c = stream.read()) != -1) {
+		while ((c = stream.read()) != -1) {
 			System.out.write(c);
 		}
 	}
