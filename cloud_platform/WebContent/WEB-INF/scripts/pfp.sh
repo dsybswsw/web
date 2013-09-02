@@ -31,12 +31,12 @@ OUTPUT=$ROOT/pfp_out
 # export HADOOP_HOME="/home/dawei/programs/hadoop-1.1.2/"
 # export MAHOUT_HOME="/home/dawei/codes/mahout/mahout-distribution-0.7"
 
-
 #$HADOOP_HOME/bin/hadoop fs -rmr $TEMP_OUT
 rm -rf $OUTPUT
 rm -rf $LOCAL_DIR && mkdir -p $LOCAL_DIR
 echo "make result document"
 
+cp $JAR_ROOT/data3 $ROOT/
 cp $JAR_ROOT/data3 $LOCAL_DIR/
 
 java -cp $JAR_ROOT/mahout_pfp.jar \

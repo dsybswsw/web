@@ -1,6 +1,5 @@
 package com.platform.models;
 
-import com.google.gson.JsonObject;
 import com.platform.api.ServletGlobalInit;
 
 /**
@@ -9,5 +8,8 @@ import com.platform.api.ServletGlobalInit;
  */
 public class TrainerTest {
 	public static void main(String[] args) {
+		ServletGlobalInit.initialize("./WebContent/");
+		Trainer trainer = Trainer.getInstance();
+		trainer.runScriptsTest("java");
 	}
 }
