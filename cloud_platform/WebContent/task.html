@@ -19,13 +19,15 @@
           border: 1px  #FF0000;
           }
           #left {
-          float: left;
+          float:  left ;
+          margin-left: 200px ;
           height: auto;
           width: auto;
           border: 1px  #00FF00;
           }
           #right {
-          float: right;
+          float:  right;
+          margin-right: 200px;
           height: auto;
           width: auto;
           border: 1px  #0000FF;
@@ -41,20 +43,28 @@
           }
         -->
     </style>
-  </head>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/easySlider1.5.js"></script>
+<script type="text/javascript" charset="utf-8"></script>
+</head>
 
   <body>
-    <div class="container" style="width:800px">
-      <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li class=""><a href="index.html">Home</a></li>
-          <li class=""><a href="data.html">DataSet Management</a></li>          
-          <li class=""><a href="task.html">Task Management</a></li>          
+<div class="main">
+  <div class="header">
+    <div class="block_header">
+      <div class="logo"></a></div>
+      <div class="menu">
+        <ul>
+          <li><a href="index.html" class="active">Home Page</a></li>
+      <li><a href="data.html">Data Managerment</a></li>
+          <li><a href="task.html">Task Managerment</a></li>          
+          <li><a href="contact.html">Contact Us</a></li>
         </ul>
-        <a class="brand">
-          <img src="images/ds.png"></img>
-        </a>
       </div>
+      <div class="clr"> </div>
+    </div>
+ </div>
       <hr/>
       <div id="left" class="task1">
         <h3>Build New Task</h3>

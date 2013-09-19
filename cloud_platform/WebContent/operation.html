@@ -16,12 +16,14 @@
           #left {
           float: left;
           height: auto;
+          margin-left: 400px;
           width: auto;
           border: 1px  #00FF00;
           }
           #right {
           float: right;
           height: auto;
+          margin-right: 200px;
           width: auto;
           border: 1px  #0000FF;
           }
@@ -36,21 +38,29 @@
           }
         -->
     </style>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/easySlider1.5.js"></script>
+<script type="text/javascript" charset="utf-8"></script>
     <title> new document </title> 
   </head> 
 
   <body> 
-    <div class="container" style="width:900px">
-      <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li class=""><a href="index.html">Home</a></li>
-          <li class=""><a href="task.html">Task Management</a></li>          
-          <li class=""><a href="data.html">Data Management</a></li>          
+<div class="main">
+  <div class="header">
+    <div class="block_header">
+      <div class="logo"></a></div>
+      <div class="menu">
+        <ul>
+          <li><a href="index.html" class="active">Home Page</a></li>
+		  <li><a href="data.html">Data Managerment</a></li>
+          <li><a href="task.html">Task Managerment</a></li>          
+          <li><a href="contact.html">Contact Us</a></li>
         </ul>
-        <a class="brand">
-          <img src="images/ds.png"></img>
-        </a>
       </div>
+      <div class="clr"> </div>
+    </div>
+ </div>
       <div id="middle" class="title">
         <p>
           <h3>
@@ -62,7 +72,7 @@
       </div>
 
       <hr/>
-
+<div id="left">
       <div class="request">
         <h4>Running Commander</h4>
         <p>Send running command to the backend system</p>
@@ -105,5 +115,6 @@
         </script>
       </div>
     </div>
+  </div>
   </body> 
 </html>
