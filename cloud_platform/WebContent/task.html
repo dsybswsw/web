@@ -64,13 +64,19 @@
           
           <br/>
           <label>select task type</label>
-          <select id="tasktype" name="tasktype" onchange="getSelectDataSets(this.options[this.options.selectedIndex].value)">
+          <!-- <select id="tasktype" name="tasktype" onchange="getSelectDataSets(this.options[this.options.selectedIndex].value)"> -->
+          <select id="tasktype" name="tasktype" onchange="getSelects(this.options[this.options.selectedIndex].value)">
             <option type="hidden" value="null"></option>
             <option value="classification">classification</option>
             <option value="clustering">clustering</option>
             <option value="fp_growth">fp_growth</option>
           </select>
           <br/>
+
+          <select id="algorithm" name="algorithm" >
+          </select>
+          <br/>
+
           <label for="label_description">description</label>
           <input id="description" type="text" name="description"></input>
           <br/>
