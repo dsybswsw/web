@@ -5,7 +5,7 @@
 # auto build war.
 ant war
 
-TOMCAT_DIR="/home/chenlei/tomcat/apache-tomcat-7.0.42"
+TOMCAT_DIR="/home/dawei/programs/apache-tomcat-7.0.41"
 
 # stop server
 $TOMCAT_DIR/bin/shutdown.sh

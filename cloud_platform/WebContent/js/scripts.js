@@ -97,6 +97,39 @@ function parseSkipUrl(url) {
     return param;
 }
 
+
+function handleURL(url) {
+    var level1=url.split("?"); 
+    if (level1.length != 2) {
+        return false;
+    }
+    var level2 = level1[1].split("&");
+    if (level2.length != 2) {
+        return false;
+    }
+    var tasktype = level2[0].split("=")[1];
+    var algorithm = level2[1].split("=")[1];
+
+    getSelects(tasktype);
+
+    var selectObj = document.getElementById("tasktype");
+
+    for(var i=0;i<selectObj.options.length;i++){
+        if(selectObj.options[i].text == tasktype){
+            selectObj.options[i].selected = true;
+            break;
+        }
+    }
+    
+    var selectAlgo = document.getElementById("algorithm");
+    for(var i = 0;i < selectAlgo.options.length; i++){
+        if(selectAlgo.options[i].text == algorithm){
+            selectAlgo.options[i].selected = true;
+            break;
+        }
+    }
+}
+
 function putNewTask() {
     var taskname = document.getElementById("new_taskname").value;
     var tasktype = document.getElementById("algorithm").value;
