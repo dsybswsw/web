@@ -1,7 +1,6 @@
 package com.platform.controller;
 
 import com.platform.models.DataSet;
-import com.platform.models.GlobalConfig;
 import com.platform.models.SQLFields;
 import com.platform.models.TaskInfo;
 
@@ -55,7 +54,17 @@ public class TaskManager {
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("insert into ");
 		sqlBuffer.append(TABLE_NAME);
-		sqlBuffer.append(" values ('");
+		sqlBuffer.append(" (");
+		sqlBuffer.append(SQLFields.NAME);
+		sqlBuffer.append(",");
+		sqlBuffer.append(SQLFields.TASK_ALGORITHM);
+		sqlBuffer.append(",");
+		sqlBuffer.append(SQLFields.DESCRIPTION);
+		sqlBuffer.append(",");
+		sqlBuffer.append(SQLFields.MISC);
+		sqlBuffer.append(",");
+		sqlBuffer.append(SQLFields.DATTASET_NAME);
+		sqlBuffer.append(") values ('");
 		sqlBuffer.append(name);
 		sqlBuffer.append("','");
 		sqlBuffer.append(type);
@@ -152,7 +161,7 @@ public class TaskManager {
 			ResultSet resultSet = dataBase.executeQuery(sqlBuilder.toString());
 			if (resultSet.next()) {
 				String name = resultSet.getString(SQLFields.NAME);
-				String type = resultSet.getString(SQLFields.TYPE);
+				String type = resultSet.getString(SQLFields.TASK_ALGORITHM);
 				String discription = resultSet.getString(SQLFields.DESCRIPTION);
 				String misc = resultSet.getString(SQLFields.MISC);
 				String dataSetName = resultSet.getString(SQLFields.DATTASET_NAME);
@@ -184,7 +193,7 @@ public class TaskManager {
 		ResultSet resultSet = dataBase.executeQuery(sqlBuilder.toString());
 		while (resultSet.next()) {
 			String name = resultSet.getString(SQLFields.NAME);
-			String type = resultSet.getString(SQLFields.TYPE);
+			String type = resultSet.getString(SQLFields.TASK_ALGORITHM);
 			String discription = resultSet.getString(SQLFields.DESCRIPTION);
 			String misc = resultSet.getString(SQLFields.MISC);
 			String dataSetName = resultSet.getString(SQLFields.DATTASET_NAME);

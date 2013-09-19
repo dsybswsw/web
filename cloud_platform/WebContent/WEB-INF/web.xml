@@ -45,6 +45,10 @@
         <servlet-name>TaskDeleterServlet</servlet-name>
         <servlet-class>com.platform.api.TaskDeletetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AlgorithmServlet</servlet-name>
+        <servlet-class>com.platform.api.AlgorithmServlet</servlet-class>
+    </servlet>
 
     <servlet-mapping>
         <servlet-name>ModelTrainingServlet</servlet-name>
@@ -77,5 +81,9 @@
     <servlet-mapping>
         <servlet-name>TaskDeleterServlet</servlet-name>
         <url-pattern>/task/deleter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlgorithmServlet</servlet-name>
+        <url-pattern>/algorithm</url-pattern>
     </servlet-mapping>
 </web-app>
