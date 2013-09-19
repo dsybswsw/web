@@ -1,5 +1,6 @@
 package com.platform.api;
 
+import com.platform.controller.AlgorithmManager;
 import com.platform.controller.DataSetManager;
 import com.platform.controller.MysqlDB;
 import com.platform.controller.TaskController;
@@ -18,6 +19,7 @@ public class ServletGlobalInit {
 		MysqlDB.initialize(GlobalConfig.getInstance().getDbProfile());
 		TaskController.initialize();
 		DataSetManager.init();
+		AlgorithmManager.init();
 		Trainer.init();
 	}
 }

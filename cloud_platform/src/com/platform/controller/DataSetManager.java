@@ -1,7 +1,6 @@
 package com.platform.controller;
 
 import com.platform.models.DataSet;
-import com.platform.models.GlobalConfig;
 import com.platform.models.SQLFields;
 
 import java.sql.ResultSet;
@@ -56,7 +55,15 @@ public class DataSetManager {
 		StringBuffer sqlBuffer = new StringBuffer();
 		sqlBuffer.append("insert into ");
 		sqlBuffer.append(TABLE_NAME);
-		sqlBuffer.append(" values ('");
+		sqlBuffer.append(" (");
+		sqlBuffer.append(SQLFields.DATTASET_NAME);
+		sqlBuffer.append(",");
+		sqlBuffer.append(SQLFields.DATASET_TYPE);
+		sqlBuffer.append(",");
+		sqlBuffer.append(SQLFields.DATASET_TRAINNAME);
+		sqlBuffer.append(",");
+		sqlBuffer.append(SQLFields.DATASET_TESTNAME);
+		sqlBuffer.append(") values ('");
 		sqlBuffer.append(name);
 		sqlBuffer.append("','");
 		sqlBuffer.append(type);

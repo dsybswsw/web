@@ -5,6 +5,7 @@
 var TRAINING_URL = "training";
 var TASK_URL = "task";
 var DATA_URL = "dataset";
+var ALGORITHM_URL = "algorithm"
 
 var TRAINER = "trained";
 var TRAINING = "training";
@@ -98,7 +99,7 @@ function parseSkipUrl(url) {
 
 function putNewTask() {
     var taskname = document.getElementById("new_taskname").value;
-    var tasktype = document.getElementById("tasktype").value;
+    var tasktype = document.getElementById("algorithm").value;
     var description = document.getElementById("description").value;
     var dataset_name = document.getElementById("select_datasets").value;
     var parameters = document.getElementById("parameters").value;
@@ -254,6 +255,11 @@ function getDataSets() {
     // document.body.appendChild(tb);
 }
 
+function getSelects(tasktype) {
+    getSelectDataSets(tasktype);
+    getSelectAlgorithm(tasktype);
+}
+
 function getSelectDataSets(tasktype) {
     // var tasktype = document.getElementById("select_type").value;
     var xmlhttp = new XMLHttpRequest();
@@ -279,6 +285,36 @@ function getSelectDataSets(tasktype) {
     for (var i = 0; i < obj.length; i++) {
         // var dataset_name = document.createTextNode(obj[i].dataset_name);
         var option = new Option(obj[i].dataset_name, obj[i].dataset_name);
+        // alert(dataset_name);
+        // select.appendChild(dataset_name);        
+        select.options[i] = option;
+    }
+}
+
+function getSelectAlgorithm(tasktype) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", ALGORITHM_URL + "?tasktype=" + tasktype, false);
+    xmlhttp.setRequestHeader ('Content-Type', 'application/json');
+    // xmlhttp.send(JSON.stringify(params));
+    xmlhttp.send(null);
+    if (xmlhttp.status != 200) {
+        return;
+    }
+    var recText = xmlhttp.responseText;    
+    var obj = eval ("(" + recText + ")");
+
+    var select = document.getElementById("algorithm");
+    // alert(select.length);
+    if (select.length > 0) {
+        var len = select.length;
+        for (var i = 0; i < len; i++) {
+            select.remove(i);
+        }
+    }
+
+    for (var i = 0; i < obj.length; i++) {
+        // var dataset_name = document.createTextNode(obj[i].dataset_name);
+        var option = new Option(obj[i].algorithm, obj[i].algorithm);
         // alert(dataset_name);
         // select.appendChild(dataset_name);        
         select.options[i] = option;
