@@ -1,54 +1,175 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
-    <!-- include the javascripts -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"> -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <!-- </script> -->
-    <script type="text/javascript" src="js/scripts.js"></script>
-    <!-- <link href="css/petclinic.css" rel="stylesheet" type="text/css" /> -->
-    <link href="css/css.css" rel="stylesheet" type="text/css" />
-  </head>
-
-  <body>
-    <div class="container" style="width:800px">
-      <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li class=""><a href="index.html">Home</a></li>
-          <li class=""><a href="task.html">Task Management</a></li>          
-          <li class=""><a href="data.html">Data Management</a></li>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>home</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/easySlider1.5.js"></script>
+<script type="text/javascript" charset="utf-8">
+// <![CDATA[
+$(document).ready(function(){	
+	$("#slider").easySlider({
+		controlsBefore:	'<p id="controls">',
+		controlsAfter:	'</p>',
+		auto: true, 
+		continuous: true
+	});	
+});
+// ]]>
+</script>
+<style type="text/css">
+#slider { margin:0; padding:0; list-style:none; }
+#slider ul,
+#slider li { margin:0; padding:0; list-style:none; }
+/* 
+    define width and height of list item (slide)
+    entire slider area will adjust according to the parameters provided here
+*/
+#slider li { width:906px; height:386px; overflow:hidden; }
+p#controls { margin:0; position:relative; }
+#prevBtn,
+#nextBtn { display:block; margin:0; overflow:hidden; width:44px; height:44px; position:absolute; left:0; top:-250px; }
+#nextBtn { left:862px; }
+#prevBtn a { display:block; width:44px; height:44px; background:url(images/l_arrow.gif) no-repeat 0 0; }
+#nextBtn a { display:block; width:44px; height:44px; background:url(images/r_arrow.gif) no-repeat 0 0; }
+</style>
+</head>
+<body>
+<div class="main">
+  <div class="header">
+    <div class="block_header">
+      <div class="logo"></a></div>
+      <div class="menu">
+        <ul>
+          <li><a href="index.html" class="active">Home Page</a></li>
+		  <li><a href="data.html">Data Managerment</a></li>
+          <li><a href="task.html">Task Managerment</a></li>          
+          <li><a href="contact.html">Contact Us</a></li>
         </ul>
-        <a class="brand">
-          <img src="images/ds.png"></img>
-        </a>
       </div>
-      <div class="content">
-        <div class="paragraph">
-          <h2>Brief Introduction</h2>
-          <p>
-            This platform implements some data mining algorithm and users can upload
-            their own data to it and get the computation result.
-          </p>
-        </div>
-        <hr/>
-
-        <div class="paragraph">
-          <h2>Algorithms</h2>
-          <h3>Classification</h3>
-          <p>
-            Classification is a set of supervised learning algorithms. Given some labeled
+      <div class="clr"> </div>
+    </div>
+  </div>
+  <div class="slider">
+    <div class="slice1">
+      <div id="slider">
+        <ul>
+          <li>
+            <div class="top" style="background:url(images/sliser_bg_img_1.jpg) top no-repeat;">
+              <h2>clustering</h2>
+              <p>Clustering is set of unsupervised learning algorithms. Given some unlabeled data, 
+			a clustering algorithm will divided data instance to different clusters in hard or soft ways.</br></br>Include algorithms:</br>kmeans</br>canopy</p>
+            </div>
+            <div class="bot">
+            <div class="lister">
+                <p class="active">1</p>
+                <p>2</p>
+                <p>3</p>
+				<p>4</p>
+              </div>
+              <h2>clustering</h2>
+              <p></p>
+            </div>
+          </li>
+          <li>
+            <div class="top" style="background:url(images/sliser_bg_img_2.jpg) top no-repeat;">
+              <h2>classification</h2>
+              <p>Classification is a set of supervised learning algorithms. Given some labeled
             training data, a classifier will train a classification model and the model will
-            be used to predict future data.
-          </p>
-          <h3>Clustering</h3>
-          <p>
-            Clustering is set of unsupervised learning algorithms. Given some unlabeled data, 
-            a clustering algorithm will divided data instance to different clusters in hard or soft ways.
-          </p>
-        </div>
-        <hr/>
+            be used to predict future data.</br></br>Include alogrithms:</br>svm</p>
+            </div>
+            <div class="bot">
+            <div class="lister">
+                <p>1</p>
+                <p class="active">2</p>
+                <p>3</p>
+				<p>4</p>
+              </div>
+              <h2>classification</h2>
+              <p></p>
+            </div>
+          </li>
+          <li>
+            <div class="top" style="background:url(images/sliser_bg_img_3.jpg) top no-repeat;">
+              <h2>association</h2>
+              <p></p>
+            </div>
+            <div class="bot">
+            <div class="lister">
+                <p>1</p>
+                <p>2</p>
+                <p class="active">3</p>
+				<p>4</p>
+              </div>
+              <h2>association</h2>
+              <p></br></br>Include alogtirhms:</br>pfp</p>
+            </div>
+          </li>
+         <li>
+            <div class="top" style="background:url(images/sliser_bg_img_2.jpg) top no-repeat;">
+              <h2>outlierDetect</h2>
+              <p>An outlier is an observation that lies an abnormal distance from other values in a random sample from a population. 
+Although outliers are often considered as an error or noise, they may carry important information. Detected outliers are candidates for aberrant data that may otherwise adversely lead to model misspecification, biased parameter estimation and incorrect results.
+</p>
+            </div>
+            <div class="bot">
+            <div class="lister">
+                <p>1</p>
+                <p>2</p>
+                <p>3</p>
+				<p class="active">4</p>
+              </div>
+              <h2>outlierDetect</h2>
+              <p></p>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
-  </body>
+  </div>  
+  <div class="body">
+    <div class="body_resize">
+      <div class="Author">
+        <h2>About the Author</h2>
+        <img src="images/lablogo.gif" alt="picture" width="250" height="85" hspace="20" vspace="5" />
+        <p> Research Center for Dataology and DataScience mainly focuses on the theories, methods and technologies for analyzing large-scale data in CYBER space. Nowadays, there are seven branches including Data Resource Service Office, Dataology and DataScience Research Lab, New Economy Development Strategy Research Lab, Bio-Medical Data Research Lab, Brain Informatics Research     Group, Intelligent Transportation Data Research Group and Financial Data Research Group.
+</p>
+        <p><a href="http://datascience.fudan.edu.cn/"><img src="images/read_more.gif" alt="picture" width="68" height="20" border="0" /></a></p>
+      </div>
+      <div class="animator">
+        <p></p>
+        <h2><strong>Stock Cloud Platform</strong></h2>
+		</br></br>
+        <p> Implement four class cloud algorithms for stock :</br>clustering</br>classification</br>association</br>outlierDetect </p>
+      </div>
+      <div class="clr"></div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="FBG">
+    <div class="Fbg_resize">
+      <div class="Twitter">
+      </div>
+      <div class="con">
+        <h2>Contact us</h2>
+        <ul>
+          <li>Name of the Lab: Research Center for Dataology and DataScience</li>
+          <li> Address: 825, Zhangheng Road, Shanghai, China</li>
+        </ul>
+        <ul>
+          <li>E-mail: dataology@fudan.edu.cn</li>
+          <li> Telephone：+86-21-51355519</li>
+        </ul>
+      </div>
+    </div>
+    <div class="clr"></div>
+  </div>
+  <div class="footer">
+    <div class="resize">
+    </div>
+    <p class="clr"></p>
+  </div>
+</div>
+</body>
 </html>
